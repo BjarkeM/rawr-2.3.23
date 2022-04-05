@@ -439,9 +439,28 @@ namespace Rawr
                             #endregion
 
                             #endregion
+                            var socketCount = 0;
 
-                            _cachedToolTipImage = new Bitmap(309,
-                                (hasSockets ? 150 : 20) + statHeight                                   // Stats
+                            for (int i = 0; i < 3; i++)
+                            {
+                                ItemSlot slotColor = (i == 0
+                                                               ? _currentItem.SocketColor1
+                                                               :
+                                                           (i == 1 ? _currentItem.SocketColor2 : _currentItem.SocketColor3));
+                                if (slotColor == ItemSlot.None && _currentItemInstance != null && _currentItemInstance.GetGem(i + 1) != null)
+                                {
+                                    slotColor = ItemSlot.Prismatic;
+                                }
+
+                                if (slotColor != ItemSlot.None)
+                                {
+                                    socketCount = i + 1;
+                                }
+                            }
+
+
+                                    _cachedToolTipImage = new Bitmap(309,
+                                (hasSockets ? 55 + 45*socketCount-(10*(socketCount-1)) : 40) + statHeight                                   // Stats
                                 //+ (!string.IsNullOrEmpty(typesText) ? 13 : 0)                         // ID's info
                                 + (_currentItem.Quality != ItemQuality.Temp ? 13 + extraLocation : 0) // Location
                                 + (_currentItem.Quality != ItemQuality.Temp && !CurrentItem.IsGem ? 13 + extraEnchant  : 0) // Enchant
@@ -554,7 +573,7 @@ namespace Rawr
                             if (hasSockets)
                             {
                                 int gemNameHeight = 0, gemUsedSlot = 0;
-                                int gemHeight = (20 + statHeight);
+                                int gemHeight = (statHeight);
 
                                 for (int i = 0; i < 3; i++)
                                 {
@@ -566,10 +585,10 @@ namespace Rawr
                                     {
                                         slotColor = ItemSlot.Prismatic;
                                     }
+
                                     if (slotColor != ItemSlot.None)
-                                    {
-                                        Rectangle rectGemBorder = new Rectangle(3, gemHeight * (gemUsedSlot+1), 35, 35);
-                                        yPos += gemHeight * (gemUsedSlot+1);
+                                    {     
+                                        Rectangle rectGemBorder = new Rectangle(3, 20 + gemHeight * (gemUsedSlot+1), 35, 35);
 
                                         // seek to next one
                                         gemUsedSlot++;
@@ -668,8 +687,7 @@ namespace Rawr
                                             if (Rawr.Properties.GeneralSettings.Default.DisplayGemNames && !CurrentItem.IsGem)
                                             {
                                                 SizeF gemNameSize = g.MeasureString("- " + gem.Name, _fontStats);
-                                                g.DrawString("- " + gem.Name, _fontStats, SystemBrushes.InfoText, 2, 63 + statHeight + gemNameHeight);
-                                                gemNameHeight += (int)gemNameSize.Height;
+                                                g.DrawString("- " + gem.Name, _fontStats, SystemBrushes.InfoText, 2, 40 + rectGemBorder.Y);
                                             }
                                         }
                                     }
@@ -686,7 +704,7 @@ namespace Rawr
                                     (CurrentItem.SocketBonus.ToString().Length == 0
                                          ? "None"
                                          : CurrentItem.SocketBonus.ToString()),
-                                    _fontStats, brushBonus, 2, (gemUsedSlot * gemHeight) + 10 + statHeight + gemNameHeight);
+                                    _fontStats, brushBonus, 2, yPos + (gemUsedSlot * gemHeight) + statHeight);
 
                                 // update cursor position (the magic number 63 comes from right above)
                                 SizeF socket_info_size = g.MeasureString("Socket Bonus:", _fontStats);
