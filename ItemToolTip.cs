@@ -178,10 +178,10 @@ namespace Rawr
             Debug.Assert(_fontStats == null);
             Debug.Assert(_fontStatsSmall == null);
 
-            _fontName = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, ((0)));
-            _fontTinyName = new Font("Microsoft Sans Serif", 6.00F, FontStyle.Regular, GraphicsUnit.Point, ((0)));
-			_fontStats = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, ((0)));
-			_fontStatsSmall = new Font("Microsoft Sans Serif", 7.25F, FontStyle.Regular, GraphicsUnit.Point, ((0)));
+            _fontName = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            _fontTinyName = new Font("Microsoft Sans Serif", 6.00F, FontStyle.Regular);
+			_fontStats = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular);
+			_fontStatsSmall = new Font("Microsoft Sans Serif", 7.25F, FontStyle.Regular);
 		}
 
         protected Image _cachedToolTipImage = null;
@@ -441,7 +441,7 @@ namespace Rawr
                             #endregion
 
                             _cachedToolTipImage = new Bitmap(309,
-                                (hasSockets ? 78 : 20) + statHeight                                   // Stats
+                                (hasSockets ? 150 : 20) + statHeight                                   // Stats
                                 //+ (!string.IsNullOrEmpty(typesText) ? 13 : 0)                         // ID's info
                                 + (_currentItem.Quality != ItemQuality.Temp ? 13 + extraLocation : 0) // Location
                                 + (_currentItem.Quality != ItemQuality.Temp && !CurrentItem.IsGem ? 13 + extraEnchant  : 0) // Enchant
@@ -554,6 +554,7 @@ namespace Rawr
                             if (hasSockets)
                             {
                                 int gemNameHeight = 0, gemUsedSlot = 0;
+                                int gemHeight = (20 + statHeight);
 
                                 for (int i = 0; i < 3; i++)
                                 {
@@ -567,10 +568,12 @@ namespace Rawr
                                     }
                                     if (slotColor != ItemSlot.None)
                                     {
-                                        Rectangle rectGemBorder = new Rectangle(3 + (103 * (gemUsedSlot)), 20 + statHeight, 35, 35);
+                                        Rectangle rectGemBorder = new Rectangle(3, gemHeight * (gemUsedSlot+1), 35, 35);
+                                        yPos += gemHeight * (gemUsedSlot+1);
 
                                         // seek to next one
                                         gemUsedSlot++;
+                                        yPos = yGrid.initial;
 
                                         Brush brushGemBorder = Brushes.Silver;
                                         switch (slotColor) {
@@ -683,11 +686,11 @@ namespace Rawr
                                     (CurrentItem.SocketBonus.ToString().Length == 0
                                          ? "None"
                                          : CurrentItem.SocketBonus.ToString()),
-                                    _fontStats, brushBonus, 2, 63 + statHeight + gemNameHeight);
+                                    _fontStats, brushBonus, 2, (gemUsedSlot * gemHeight) + 10 + statHeight + gemNameHeight);
 
                                 // update cursor position (the magic number 63 comes from right above)
                                 SizeF socket_info_size = g.MeasureString("Socket Bonus:", _fontStats);
-                                yPos = 63 + statHeight + gemNameHeight + ((int)socket_info_size.Height);
+                                yPos = yPos + (gemUsedSlot * gemHeight) + statHeight + gemNameHeight + ((int)socket_info_size.Height);
                             }
                             // draw information about gem color (for dummies like me)
                             if (CurrentItem.IsGem)
