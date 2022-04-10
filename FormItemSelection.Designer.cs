@@ -26,6 +26,7 @@ namespace Rawr
 			this.toolStripDropDownButtonSort = new System.Windows.Forms.ToolStripDropDownButton();
 			this.overallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.alphabeticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.itemLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timerForceActivate = new System.Windows.Forms.Timer(this.components);
 			this.panelMain.SuspendLayout();
 			this.toolStripItemComparison.SuspendLayout();
@@ -99,7 +100,8 @@ namespace Rawr
 			this.toolStripDropDownButtonSort.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.toolStripDropDownButtonSort.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.overallToolStripMenuItem,
-            this.alphabeticalToolStripMenuItem});
+            this.alphabeticalToolStripMenuItem,
+			this.itemLevelToolStripMenuItem});
 			this.toolStripDropDownButtonSort.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButtonSort.Name = "toolStripDropDownButtonSort";
 			this.toolStripDropDownButtonSort.Size = new System.Drawing.Size(57, 22);
@@ -120,6 +122,13 @@ namespace Rawr
 			this.alphabeticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.alphabeticalToolStripMenuItem.Text = "Alphabetical";
 			this.alphabeticalToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
+			// 
+			// itemLevelToolStripMenuItem
+			// 
+			this.itemLevelToolStripMenuItem.Name = "itemLevelToolStripMenuItem";
+			this.itemLevelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.itemLevelToolStripMenuItem.Text = "ItemLevel";
+			this.itemLevelToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
 			// 
 			// timerForceActivate
 			// 
@@ -162,6 +171,7 @@ namespace Rawr
 		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonSort;
 		private System.Windows.Forms.ToolStripMenuItem overallToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem alphabeticalToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem itemLevelToolStripMenuItem;
 		private System.Windows.Forms.Panel panelLine;
 	}
 }

@@ -124,6 +124,7 @@ namespace Rawr
         {
             Subpoints,
             Overall,
+            ItemLevel,
             CustomSubpoints,
         }
 
@@ -171,15 +172,23 @@ namespace Rawr
 					return b.Equipped.CompareTo(a.Equipped);
 				return a.Name.CompareTo(b.Name);
 			}
-			else if (Sort == ComparisonSort.Alphabetical)
-			{
-				if (a.Name != b.Name)
-					return a.Name.CompareTo(b.Name);
-				if (b.OverallPoints != a.OverallPoints)
-					return b.OverallPoints.CompareTo(a.OverallPoints);
-				return b.Equipped.CompareTo(a.Equipped);
-			}
-			else
+            else if (Sort == ComparisonSort.Alphabetical)
+            {
+                if (a.Name != b.Name)
+                    return a.Name.CompareTo(b.Name);
+                if (b.OverallPoints != a.OverallPoints)
+                    return b.OverallPoints.CompareTo(a.OverallPoints);
+                return b.Equipped.CompareTo(a.Equipped);
+            }
+            else if (Sort == ComparisonSort.Itemlevel)
+            {
+                if (b.Item.ItemLevel != a.Item.ItemLevel)
+                    return b.Item.ItemLevel.CompareTo(a.Item.ItemLevel);
+                if (b.OverallPoints != a.OverallPoints)
+                    return b.OverallPoints.CompareTo(a.OverallPoints);
+                return b.Equipped.CompareTo(a.Equipped);
+            }
+            else
 			{
 				int subPointCompare = b.SubPoints[(int)Sort].CompareTo(a.SubPoints[(int)Sort]);
 				if (subPointCompare != 0)
@@ -210,7 +219,8 @@ namespace Rawr
         {
             //SubPoints will be their index, such as 0 or 1
             Overall = -1,
-            Alphabetical = -2
+            Alphabetical = -2,
+            Itemlevel = -3
         }
 
         void _scrollBar_Scroll(object sender, ScrollEventArgs e)
@@ -266,7 +276,7 @@ namespace Rawr
                         float maxOverallPoints = 0f;
                         foreach (ComparisonCalculationBase calc in ItemCalculations)
                         {
-                            if (DisplayMode == GraphDisplayMode.Overall || (DisplayMode == GraphDisplayMode.CustomSubpoints && (Sort == ComparisonSort.Alphabetical || Sort == ComparisonSort.Overall)))
+                            if (DisplayMode == GraphDisplayMode.Overall || (DisplayMode == GraphDisplayMode.CustomSubpoints && (Sort == ComparisonSort.Alphabetical || Sort == ComparisonSort.Overall || Sort == ComparisonSort.Itemlevel)))
                             {
                                 if (!float.IsNaN(calc.OverallPoints))
                                 {

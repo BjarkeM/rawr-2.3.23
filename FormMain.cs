@@ -633,10 +633,11 @@ namespace Rawr
             toolStripDropDownButtonSort.DropDownItems.Clear();
             toolStripDropDownButtonSort.DropDownItems.Add(overallToolStripMenuItem);
             toolStripDropDownButtonSort.DropDownItems.Add(alphabeticalToolStripMenuItem);
+            toolStripDropDownButtonSort.DropDownItems.Add(itemLevelToolStripMenuItem);
             foreach (string name in Calculations.SubPointNameColors.Keys)
             {
                 ToolStripMenuItem toolStripMenuItemSubPoint = new ToolStripMenuItem(name);
-                toolStripMenuItemSubPoint.Tag = toolStripDropDownButtonSort.DropDownItems.Count - 2;
+                toolStripMenuItemSubPoint.Tag = toolStripDropDownButtonSort.DropDownItems.Count - 3;
                 toolStripMenuItemSubPoint.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
                 toolStripDropDownButtonSort.DropDownItems.Add(toolStripMenuItemSubPoint);
             }

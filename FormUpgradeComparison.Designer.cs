@@ -52,6 +52,7 @@
             this.toolStripDropDownButtonSort = new System.Windows.Forms.ToolStripDropDownButton();
             this.overallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alphabeticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButtonExport = new System.Windows.Forms.ToolStripDropDownButton();
             this.copyDataToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -259,7 +260,8 @@
             this.toolStripDropDownButtonSort.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButtonSort.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.overallToolStripMenuItem,
-            this.alphabeticalToolStripMenuItem});
+            this.alphabeticalToolStripMenuItem,
+            this.itemLevelToolStripMenuItem});
             this.toolStripDropDownButtonSort.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonSort.Image")));
             this.toolStripDropDownButtonSort.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonSort.Margin = new System.Windows.Forms.Padding(0, 1, 8, 2);
@@ -282,6 +284,14 @@
             this.alphabeticalToolStripMenuItem.Tag = -2;
             this.alphabeticalToolStripMenuItem.Text = "Alphabetical";
             this.alphabeticalToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
+            // 
+            // itemLevelToolStripMenuItem
+            // 
+            this.itemLevelToolStripMenuItem.Name = "itemLevelToolStripMenuItem";
+            this.itemLevelToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.itemLevelToolStripMenuItem.Tag = -3;
+            this.itemLevelToolStripMenuItem.Text = "Item Level";
+            this.itemLevelToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
             // 
             // toolStripDropDownButtonExport
             // 
@@ -438,6 +448,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonSort;
         private System.Windows.Forms.ToolStripMenuItem overallToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alphabeticalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem itemLevelToolStripMenuItem;
         private System.Windows.Forms.VScrollBar vScrollBarGraph;
         private ComparisonGraph comparisonGraph1;
         private System.Windows.Forms.MenuStrip menuStrip;

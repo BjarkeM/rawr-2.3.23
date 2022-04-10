@@ -74,6 +74,8 @@ namespace Rawr
 				return a.OverallPoints.CompareTo(b.OverallPoints);
 			else if (Sort == ComparisonGraph.ComparisonSort.Alphabetical)
 				return b.Name.CompareTo(a.Name);
+			else if (Sort == ComparisonGraph.ComparisonSort.Itemlevel)
+				return b.Item.ItemLevel.CompareTo(a.Item.ItemLevel);
 			else
 				return a.SubPoints[(int)Sort].CompareTo(b.SubPoints[(int)Sort]);
 		}
@@ -84,6 +86,7 @@ namespace Rawr
 
 			overallToolStripMenuItem.Tag = -1;
 			alphabeticalToolStripMenuItem.Tag = -2;
+			itemLevelToolStripMenuItem.Tag = -3;
 
 			Calculations_ModelChanged(null, null);
 
@@ -100,11 +103,12 @@ namespace Rawr
 			toolStripDropDownButtonSort.DropDownItems.Clear();
 			toolStripDropDownButtonSort.DropDownItems.Add(overallToolStripMenuItem);
 			toolStripDropDownButtonSort.DropDownItems.Add(alphabeticalToolStripMenuItem);
+			toolStripDropDownButtonSort.DropDownItems.Add(itemLevelToolStripMenuItem);
 
 			foreach (string name in Calculations.SubPointNameColors.Keys)
 			{
 				ToolStripMenuItem toolStripMenuItemSubPoint = new ToolStripMenuItem(name);
-				toolStripMenuItemSubPoint.Tag = toolStripDropDownButtonSort.DropDownItems.Count - 2;
+				toolStripMenuItemSubPoint.Tag = toolStripDropDownButtonSort.DropDownItems.Count - 3;
 				toolStripMenuItemSubPoint.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
 				toolStripDropDownButtonSort.DropDownItems.Add(toolStripMenuItemSubPoint);
 			}
@@ -417,7 +421,7 @@ namespace Rawr
 				if (visible)
 				{
 					float calcRating;
-                    if (Sort == ComparisonGraph.ComparisonSort.Overall || this.Sort == ComparisonGraph.ComparisonSort.Alphabetical)
+                    if (Sort == ComparisonGraph.ComparisonSort.Overall || this.Sort == ComparisonGraph.ComparisonSort.Alphabetical || this.Sort == ComparisonGraph.ComparisonSort.Itemlevel)
                     {
                         calcRating = calc.OverallPoints;
                     }
